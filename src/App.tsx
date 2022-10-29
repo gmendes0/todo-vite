@@ -3,7 +3,14 @@ import styles from "./App.module.scss";
 import { Logo } from "./components/Logo";
 import { ListHeader } from "./components/ListHeader";
 import { Task } from "./components/Task";
-import { ChangeEvent, FormEvent, InvalidEvent, useMemo, useState } from "react";
+import {
+  ChangeEvent,
+  FormEvent,
+  InvalidEvent,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { EmptyList } from "./components/EmptyList";
 import { v4 as uuidv4 } from "uuid";
 
@@ -14,23 +21,30 @@ interface Task {
 }
 
 function App() {
-  const [tasks, setTasks] = useState<Task[]>([
-    { id: "1", description: "Fazer compras", isCompleted: false },
-    {
-      id: "2",
-      description: "Finalizar o módulo 1 de ReactJS ",
-      isCompleted: true,
-    },
-  ]);
+  const [tasks, setTasks] = useState<Task[]>([]);
 
   const [newTask, setNewTask] = useState<string>("");
+
+  useEffect(() => {
+    try {
+      const storedTasks = localStorage.getItem("todo-ignite");
+
+      if (storedTasks) setTasks(JSON.parse(storedTasks));
+    } catch (err) {
+      console.error("Não foi possível recuperar as tarefas armazenadas");
+      console.error(err);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (tasks.length > 0)
+      localStorage.setItem("todo-ignite", JSON.stringify(tasks));
+  }, [tasks]);
 
   const completedTasks = useMemo(
     () => tasks.reduce((acc, task) => acc + (task.isCompleted ? 1 : 0), 0),
     [tasks]
   );
-
-  const totalTasksCount = tasks.length;
 
   function handleNewTaskInputChange(event: ChangeEvent<HTMLInputElement>) {
     setNewTask(event.target.value);
@@ -41,10 +55,15 @@ function App() {
   function handleCreateNewTask(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    setTasks((state) => [
-      ...state,
-      { id: uuidv4(), description: newTask, isCompleted: false },
-    ]);
+    const newTaskData = {
+      id: uuidv4(),
+      description: newTask,
+      isCompleted: false,
+    };
+
+    setTasks((state) => [...state, newTaskData]);
+
+    // localStorage.setItem("todo-ignite", JSON.stringify(newTaskData));
 
     setNewTask("");
   }
@@ -70,6 +89,8 @@ function App() {
 
     setTasks((state) => state.filter((task) => task.id !== id));
   }
+
+  const totalTasksCount = tasks.length;
 
   return (
     <div>
