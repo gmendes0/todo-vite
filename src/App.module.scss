@@ -1,6 +1,10 @@
 .container {
   max-width: 736px;
   margin: 0 auto;
+
+  @media screen and (max-width: 765px) {
+    margin: 0 2rem;
+  }
 }
 
 .form {
@@ -16,6 +20,7 @@
     background: var(--gray-500);
     border: 1px solid var(--gray-700);
     border-radius: 8px;
+    color: var(--gray-100);
 
     &::placeholder {
       color: var(--gray-300);
