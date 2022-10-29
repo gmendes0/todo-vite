@@ -1,0 +1,35 @@
+.listHeader {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 4rem 0 1.5rem;
+}
+
+.listHeader div {
+  strong {
+    font-size: 0.875rem;
+  }
+
+  span {
+    background: var(--gray-400);
+    padding: 0.125rem 0.5rem;
+    border-radius: 999px;
+    margin-left: 0.5rem;
+    color: var(--gray-200);
+    font-weight: 700;
+    font-size: 0.75rem;
+  }
+}
+
+.listHeader div {
+  strong {
+    color: var(--blue-500);
+  }
+}
+
+.listHeader div + div {
+  strong {
+    color: var(--purple-500);
+  }
+}

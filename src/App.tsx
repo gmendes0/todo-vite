@@ -1,31 +1,61 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
+import { PlusCircle } from "phosphor-react";
+import styles from "./App.module.scss";
+import { Logo } from "./components/Logo";
+import { ListHeader } from "./components/ListHeader";
+import { Task } from "./components/Task";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <div>
+      <Logo />
+
+      <main className={styles.container}>
+        <form className={styles.form}>
+          <input type="text" placeholder="Adicione uma nova tarefa" />
+          <button>
+            Criar <PlusCircle weight="bold" />
+          </button>
+        </form>
+
+        <ListHeader totalTasksCount={15} completedTasksCount={7} />
+
+        {/* <EmptyList /> */}
+
+        <div>
+          <Task
+            id="1"
+            description="Lorem ipsum dolor sit amet consectetur adipisicing elit."
+          />
+          <Task
+            id="2"
+            description="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta exercitationem officia placeat dolorem excepturi sunt atque voluptate porro. Esse repellendus, non quasi quibusdam magnam quam fuga ipsam temporibus sint deserunt?"
+          />
+          <Task
+            id="2"
+            description="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta exercitationem officia placeat dolorem excepturi sunt atque voluptate porro. Esse repellendus, non quasi quibusdam magnam quam fuga ipsam temporibus sint deserunt?"
+          />
+          <Task
+            id="1"
+            description="Lorem ipsum dolor sit amet consectetur adipisicing elit."
+          />
+          <Task
+            id="2"
+            description="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta exercitationem officia placeat dolorem excepturi sunt atque voluptate porro. Esse repellendus, non quasi quibusdam magnam quam fuga ipsam temporibus sint deserunt?"
+          />
+          <Task
+            id="2"
+            description="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta exercitationem officia placeat dolorem excepturi sunt atque voluptate porro. Esse repellendus, non quasi quibusdam magnam quam fuga ipsam temporibus sint deserunt?"
+          />
+          <Task
+            id="1"
+            description="Lorem ipsum dolor sit amet consectetur adipisicing elit."
+          />
+          <Task
+            id="2"
+            description="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta exercitationem officia placeat dolorem excepturi sunt atque voluptate porro. Esse repellendus, non quasi quibusdam magnam quam fuga ipsam temporibus sint deserunt?"
+          />
+        </div>
+      </main>
     </div>
   );
 }

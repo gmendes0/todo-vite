@@ -1,0 +1,104 @@
+.task {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  padding: 1rem;
+  background: var(--gray-500);
+  border-radius: 8px;
+
+  &:first-child {
+    margin-top: 1.5rem;
+  }
+
+  &:last-child {
+    margin-bottom: 1.5rem;
+  }
+
+  & + & {
+    margin-top: 0.75rem;
+  }
+
+  p {
+    margin: 0.75rem;
+    text-align: justify;
+    flex: 1;
+    font-weight: 400;
+    font-size: 0.875rem;
+    color: var(--gray-100);
+  }
+
+  input[type="checkbox"] {
+    // border-radius: 100%; todo
+
+    height: 1.09rem;
+    width: 1.09rem;
+  }
+
+  button {
+    line-height: 0;
+    padding: 5px 6px;
+    border: 0;
+    background: var(--gray-500);
+    cursor: pointer;
+
+    &:hover svg {
+      color: var(--danger);
+    }
+
+    svg {
+      color: var(--gray-300);
+      transition: color 0.2s;
+    }
+  }
+
+  .checkboxControl {
+    position: relative;
+
+    input[type="checkbox"] {
+      visibility: hidden;
+    }
+
+    input[type="checkbox"]:checked + label {
+      background: var(--purple-600);
+      border-color: var(--purple-600);
+
+      &:after {
+        opacity: 1;
+      }
+    }
+  }
+
+  .checkboxControl label {
+    background: var(--gray-500);
+    border: 2px solid var(--blue-500);
+    border-radius: 100%;
+    cursor: pointer;
+    height: 17.5px;
+    width: 17.5px;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    transition: filter 0.2s;
+
+    &:hover {
+      filter: brightness(0.7);
+    }
+
+    &::after {
+      content: "";
+      border: 2px solid var(--gray-100); // gray-500
+      border-top: none;
+      border-right: none;
+      height: 3.739px;
+      width: 7.478px;
+      position: absolute;
+      left: calc(
+        6.478px - 4.180648522px
+      ); // largura - borda adicional - hipotenusa
+      top: calc(1.739px); // chute
+      transform: rotate(-45deg);
+      opacity: 0;
+    }
+  }
+}
