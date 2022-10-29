@@ -7,6 +7,7 @@ import {
   ChangeEvent,
   FormEvent,
   InvalidEvent,
+  useCallback,
   useEffect,
   useMemo,
   useState,
@@ -46,6 +47,20 @@ function App() {
     [tasks]
   );
 
+  const handleToggleTaskIsCompleted = useCallback((id: string) => {
+    setTasks((state) =>
+      state.map((task) =>
+        task.id === id
+          ? { ...task, isCompleted: !task.isCompleted }
+          : { ...task }
+      )
+    );
+  }, []);
+
+  const handleDeleteTask = useCallback((id: string) => {
+    setTasks((state) => state.filter((task) => task.id !== id));
+  }, []);
+
   function handleNewTaskInputChange(event: ChangeEvent<HTMLInputElement>) {
     setNewTask(event.target.value);
 
@@ -70,24 +85,6 @@ function App() {
 
   function handleInvalidNewTaskInput(event: InvalidEvent<HTMLInputElement>) {
     event.target.setCustomValidity("Por favor, digite algo");
-  }
-
-  // callback
-  function handleToggleTaskIsCompleted(id: string) {
-    setTasks((state) =>
-      state.map((task) =>
-        task.id === id
-          ? { ...task, isCompleted: !task.isCompleted }
-          : { ...task }
-      )
-    );
-  }
-
-  // callback
-  function handleDeleteTask(id: string) {
-    console.log(tasks.filter((task) => task.id !== id));
-
-    setTasks((state) => state.filter((task) => task.id !== id));
   }
 
   const totalTasksCount = tasks.length;

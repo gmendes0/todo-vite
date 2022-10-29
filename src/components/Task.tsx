@@ -1,5 +1,5 @@
 import { Trash } from "phosphor-react";
-import { ChangeEvent } from "react";
+import { ChangeEvent, memo } from "react";
 import styles from "./Task.module.scss";
 
 interface Task {
@@ -13,7 +13,7 @@ interface TaskProps {
   onDeleteTask: (id: string) => void;
 }
 
-export function Task({ task, onToggleIsCompleted, onDeleteTask }: TaskProps) {
+function TaskComponent({ task, onToggleIsCompleted, onDeleteTask }: TaskProps) {
   function handleToggleIsCompleted(id: string) {
     onToggleIsCompleted(id);
   }
@@ -40,3 +40,7 @@ export function Task({ task, onToggleIsCompleted, onDeleteTask }: TaskProps) {
     </div>
   );
 }
+
+export const Task = memo(TaskComponent, (prevProps, nextProps) =>
+  Object.is(prevProps.task, nextProps.task)
+);
